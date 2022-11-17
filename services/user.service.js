@@ -1,13 +1,11 @@
-const UserModel = require("../models/user.models");
-const myConnect = require("../config/dbConnect");
+import UserModel from "../models/user.models.js";
+import myConnect from "../config/dbConnect.js";
 
 const getUsersServices = () => {
-  myConnect;
+  myConnect();
   return UserModel.find().then((result) => {
     return result;
   });
 };
 
-module.exports = {
-  getUsersServices,
-};
+export default getUsersServices;

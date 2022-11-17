@@ -1,7 +1,7 @@
-const { getUsersServices } = require("../services/user.service");
+import getUsersServices from "../services/user.service.js";
 
 const getUsersController = (req, res) => {
   getUsersServices().then((datos) => res.json(datos));
 };
 
-module.exports = { getUsersController };
+export default getUsersController;
