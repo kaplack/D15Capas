@@ -1,9 +1,16 @@
 import express from "express";
 import userRouter from "./routes/users.routes.js";
 import homeRouter from "./routes/home.routes.js";
+import loginRouter from "./routes/login.routes.js";
+import signUpRouter from "./routes/signup.routes.js";
+import logOutRouter from "./routes/logout.routes.js";
 import mySession from "./config/sessionConfig.js";
 import logger from "./config/myLogger.js";
 import productsRouter from "./routes/products.routes.js";
+
+import { graphqlHTTP } from "express-graphql";
+import schemaProducts from "./schema/schema.js";
+import * as resolvers from "./services/products.service.js";
 
 const app = express();
 app.use(express.json());
@@ -17,7 +24,19 @@ app.set("views", "./views");
 
 app.use("/", homeRouter);
 app.use("/products", productsRouter);
+app.use("/login", loginRouter);
+app.use("/signup", signUpRouter);
+app.use("/logout", logOutRouter);
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: schemaProducts,
+    rootValue: resolvers,
+    graphiql: true,
+  })
+);
 
-app.listen(8080, () => {
+let PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
   logger.info("app is running");
 });

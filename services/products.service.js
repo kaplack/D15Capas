@@ -8,4 +8,17 @@ const getProductsServices = () => {
   });
 };
 
-export default getProductsServices;
+const postProductService = (productObject) => {
+  myConnect();
+  const product = new ProductsModel(productObject);
+  product
+    .save()
+    .then((result) => {
+      return result;
+    })
+    .catch((error) => {
+      res.status(500).json({ mensaje: "no se guardo la información" });
+    });
+};
+
+export { getProductsServices, postProductService };

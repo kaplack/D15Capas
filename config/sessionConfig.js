@@ -10,6 +10,7 @@ const mySession = () => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       },
+      dbName: "coloso",
       ttl: 60000,
     }),
     secret: "orwell",

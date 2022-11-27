@@ -1,11 +1,23 @@
 import UserModel from "../models/user.models.js";
 import myConnect from "../config/dbConnect.js";
 
-const getUsersServices = () => {
-  myConnect();
-  return UserModel.find().then((result) => {
-    return result;
-  });
-};
+class UserService {
+  constructor() {}
 
-export default getUsersServices;
+  getUsers() {
+    myConnect();
+    return UserModel.find().then((result) => {
+      return result;
+    });
+  }
+
+  saveUser(user) {
+    myConnect();
+    const userInfo = new UserModel(user);
+    userInfo.save().then((result) => {
+      return result;
+    });
+  }
+}
+
+export default UserService;
